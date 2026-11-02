@@ -1,34 +1,22 @@
 
-name: Build Cereal Shop Kinoo APK
-
+name: Build APK
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - main
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout project
-        uses: actions/checkout@v4
-
-      - name: Set up Java
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: 'temurin'
           java-version: '17'
-
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.9'
-
       - name: Build APK
-        run: gradle assembleDebug
-
+        run: |
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
