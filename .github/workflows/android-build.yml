@@ -14,20 +14,12 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '16'
-          
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+          java-version: '17'
 
-      - name: Make index.html exist
-        run: |
-          mkdir -p app/src/main/assets
-          ls -R
-
-      - name: Build APK with Gradle
+      - name: Build APK
         uses: gradle/gradle-build-action@v3
         with:
-          gradle-version: 8.9
+          gradle-version: 8.5
           arguments: assembleDebug
 
       - name: Upload APK
